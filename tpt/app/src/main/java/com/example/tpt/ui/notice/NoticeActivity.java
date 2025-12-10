@@ -27,13 +27,13 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class MainActivity2 extends AppCompatActivity {
+public class NoticeActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     NoticeAdapter adapter;
     ArrayList<Notice> noticeList = new ArrayList<>();
 
-    WebView tempWebView;   // 쿠키 수집용 WebView (화면에 안 보임)
+    WebView tempWebView;
     String baseUrl = "https://www.changwon.ac.kr";
 
     @Override
@@ -46,10 +46,8 @@ public class MainActivity2 extends AppCompatActivity {
         adapter = new NoticeAdapter(this, noticeList);
         recyclerView.setAdapter(adapter);
 
-        // WebView 쿠키 활성화
         CookieManager.getInstance().setAcceptCookie(true);
 
-        // WebView 생성 (숨겨져 있음)
         tempWebView = new WebView(this);
         tempWebView.getSettings().setJavaScriptEnabled(true);
 
@@ -58,21 +56,17 @@ public class MainActivity2 extends AppCompatActivity {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
 
-                // WebView 쿠키 가져오기
                 String cookies = CookieManager.getInstance().getCookie(url);
                 Log.d("COOKIE", "쿠키: " + cookies);
 
-                loadNoticeWithCookie(cookies);  // OkHttp 요청
+                loadNoticeWithCookie(cookies);
             }
         });
 
-        // 1) WebView로 공지 페이지 로딩 → 쿠키 얻기
         tempWebView.loadUrl("https://www.changwon.ac.kr/portal/na/ntt/selectNttList.do?mi=13532&bbsId=2932");
     }
 
-    // 2) WebView에서 가져온 쿠키를 붙여서 OkHttp API 호출
     private void loadNoticeWithCookie(String cookie) {
-
         OkHttpClient client = new OkHttpClient();
 
         RequestBody formBody = new FormBody.Builder()
@@ -84,7 +78,7 @@ public class MainActivity2 extends AppCompatActivity {
 
         Request request = new Request.Builder()
                 .url("https://www.changwon.ac.kr/portal/na/ntt/selectNttListAjax.do")
-                .addHeader("Cookie", cookie)       // ★ 핵심: WebView 쿠키 추가
+                .addHeader("Cookie", cookie)
                 .addHeader("User-Agent", "Mozilla/5.0")
                 .addHeader("X-Requested-With", "XMLHttpRequest")
                 .addHeader("Referer", "https://www.changwon.ac.kr/portal/na/ntt/selectNttList.do?mi=13532&bbsId=2932")
@@ -92,10 +86,8 @@ public class MainActivity2 extends AppCompatActivity {
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
-
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-
                 String json = response.body().string();
                 Log.d("DEBUG_JSON", json);
 
@@ -104,16 +96,13 @@ public class MainActivity2 extends AppCompatActivity {
                     JSONArray list = obj.getJSONArray("resultList");
 
                     for (int i = 0; i < list.length(); i++) {
-
                         JSONObject item = list.getJSONObject(i);
 
                         String title = item.getString("nttSj");
                         String date = item.getString("createDt");
                         String nttSn = item.getString("nttSn");
 
-                        // 상세페이지 URL
-                        String link = baseUrl
-                                + "/portal/na/ntt/selectNttInfo.do?mi=13532&nttSn=" + nttSn;
+                        String link = baseUrl + "/portal/na/ntt/selectNttInfo.do?mi=13532&nttSn=" + nttSn;
 
                         noticeList.add(new Notice(title, date, link));
                     }

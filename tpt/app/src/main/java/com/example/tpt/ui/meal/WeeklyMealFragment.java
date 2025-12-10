@@ -48,6 +48,28 @@ public class WeeklyMealFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // 뒤로가기 버튼 처리
+        requireActivity().getOnBackPressedDispatcher().addCallback(
+                getViewLifecycleOwner(),
+                new androidx.activity.OnBackPressedCallback(true) {
+                    @Override
+                    public void handleOnBackPressed() {
+                        // Fragment를 pop하여 CafeteriaMenuFragment로 돌아감
+                        if (getParentFragmentManager().getBackStackEntryCount() > 0) {
+                            getParentFragmentManager().popBackStack();
+                        } else {
+                            // Back stack이 비어있으면 Activity 종료
+                            requireActivity().finish();
+                        }
+                    }
+                }
+        );
+    }
+
     private void startCrawling() {
         new Thread(() -> {
             List<DailyMeal> weeklyMeals = new ArrayList<>();
@@ -87,6 +109,7 @@ public class WeeklyMealFragment extends Fragment {
             }
         }).start();
     }
+
     private void parseDormitory(Document doc, List<DailyMeal> weeklyMeals) {
         Element table = doc.select("div.view_cont table").first();
         if (table == null) table = doc.select("table").first();
@@ -130,10 +153,12 @@ public class WeeklyMealFragment extends Fragment {
             }
         }
     }
+
     private String formatDormMenu(String rawMenu) {
         if (rawMenu == null) return "";
         return rawMenu.replaceAll("\\)\\s+", ")\n").trim();
     }
+
     private void parseStandard(Document doc, List<DailyMeal> weeklyMeals) {
         Elements tables = doc.select("table.diet_table");
         if (tables.isEmpty()) tables = doc.select("table");
@@ -197,6 +222,7 @@ public class WeeklyMealFragment extends Fragment {
             }
         }
     }
+
     private String cleanAndMergeMenu(String rawHtml) {
         String text = rawHtml.replace("<br>", "\n").replaceAll("<[^>]*>", "").replace("&lt;", "<").replace("&gt;", ">").replace("&amp;", "&").trim();
         String[] lines = text.split("\n");
@@ -226,11 +252,13 @@ public class WeeklyMealFragment extends Fragment {
         for (String l : resultLines) sb.append(l).append("\n");
         return sb.toString().trim();
     }
+
     private String appendBlock(String current, String newBlock) {
         if (newBlock.isEmpty() || newBlock.contains("운영없음")) return current;
         if (current.isEmpty()) return newBlock;
         return current + "\n\n" + newBlock;
     }
+
     private int getTodayIndex() {
         Calendar calendar = Calendar.getInstance();
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);

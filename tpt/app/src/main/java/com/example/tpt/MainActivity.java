@@ -2,7 +2,6 @@ package com.example.tpt;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +13,6 @@ import com.example.tpt.manager.ScheduleManager;
 import com.example.tpt.ui.schedule.AddScheduleActivity;
 import com.example.tpt.ui.schedule.ScheduleListFragment;
 import com.example.tpt.ui.schedule.TimetableFragment;
-import com.example.tpt.ui.notice.MainActivity2;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends AppCompatActivity {
