@@ -10,8 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
         tools:targetApi="31">
+        
+        <!-- 메인 홈 화면을 런처로 설정 -->
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.notice.MainActivity2"
             android:exported="true"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
             <intent-filter>
@@ -19,6 +21,14 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        
+        <!-- 일정 관리 화면 -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"/>
+            
+        <!-- 일정 추가 화면 -->
         <activity
             android:name=".AddScheduleActivity"
             android:exported="false"
