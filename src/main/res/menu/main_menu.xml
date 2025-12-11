@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_home"
+        android:icon="@android:drawable/ic_menu_revert"
+        android:title="홈으로"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_refresh"
+        android:icon="@android:drawable/ic_menu_rotate"
+        android:title="새로고침"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_info"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="앱 정보"
+        app:showAsAction="never" />
+</menu>
