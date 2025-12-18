@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MyDraw</string>
+    <string name="action_mode">모드</string>
+    <string name="action_color">색상</string>
+    <string name="action_stroke">굵기</string>
+    <string name="action_save">저장</string>
+    <string name="action_clear">지우기</string>
+    <string name="action_load">불러오기</string>
+    <string name="action_import">이미지 가져오기</string>
+    <string name="action_settings">설정</string>
+</resources>

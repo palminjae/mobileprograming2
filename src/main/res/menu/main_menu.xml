@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_mode"
+        android:title="모드"
+        android:icon="@android:drawable/ic_menu_view"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_color"
+        android:title="색상"
+        android:icon="@android:drawable/ic_menu_edit"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_stroke"
+        android:title="굵기"
+        android:icon="@android:drawable/ic_menu_preferences"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_save"
+        android:title="저장"
+        android:icon="@android:drawable/ic_menu_save"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_clear"
+        android:title="지우기"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_load"
+        android:title="불러오기"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_import"
+        android:title="이미지 가져오기"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="설정"
+        app:showAsAction="never" />
+
+</menu>
